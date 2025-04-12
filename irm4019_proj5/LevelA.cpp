@@ -12,7 +12,7 @@
 #include "Utility.h"
 
 #define LEVEL_WIDTH 15
-#define LEVEL_HEIGHT 8
+#define LEVEL_HEIGHT 15
 
 constexpr char SPRITESHEET_FILEPATH[] = "Frame_5.png",
            ENEMY_FILEPATH[]       = "troppa.png",
@@ -25,15 +25,23 @@ GLuint g_font_texture_id_1;
 
 unsigned int LEVELA_DATA[] =
 {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-    2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
+
 
 LevelA::~LevelA()
 {
@@ -83,7 +91,7 @@ void LevelA::initialise()
         PLAYER
     );
         
-    m_game_state.player->set_position(glm::vec3(1.0f, -5.0f, 0.0f));
+    m_game_state.player->set_position(glm::vec3(5.0f, -4.0f, 0.0f));
 
 //    m_game_state.player->set_jumping_power(3.0f);
     
@@ -97,7 +105,7 @@ void LevelA::initialise()
     }
 
 
-    m_game_state.enemies[0].set_position(glm::vec3(5.0f, -5.0f, 0.0f));
+    m_game_state.enemies[0].set_position(glm::vec3(1.0f, 0.0f, 0.0f));
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
     
@@ -117,35 +125,12 @@ void LevelA::initialise()
 void LevelA::update(float delta_time)
 {
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
-    for (int i = 0; i < ENEMY_COUNT; i++) {
-        glm::vec3 res = m_game_state.enemies[i].get_position();
-        if (res.y >= 0.0) {
-            check = !check;
-        } else if (res.y <= -5.05) {
-            check = !check;
-        }
-        if (check) {
-            res += new_pos;
-        } else {
-            res -= new_pos;
-        }
-        m_game_state.enemies[i].set_position(res);
-        m_game_state.enemies[i].update(delta_time, m_game_state.enemies, m_game_state.player, 1, m_game_state.map);
-    }
+    
+    std::cout << m_game_state.player->get_position().x << " " << m_game_state.player->get_position().y << std::endl;
     
     
-    bool end = m_game_state.player->get_collided_top() || m_game_state.player->get_collided_right() || m_game_state.player->get_collided_left();
-    if (end) {
-        Mix_PlayChannel(-1,  m_game_state.die_sfx, 0);
-        LIVES -= 1;
-        m_game_state.player->set_position(glm::vec3(1.0f,0.0f,0.0f));
-    }
     
 
-    if (m_game_state.player->get_position().y < -10.0f && m_game_state.player->get_position().x >= 12.0f) m_game_state.next_scene_id = 2;
-    else if (m_game_state.player->get_position().y < -10.0f && m_game_state.player->get_position().x < 12.0f) {
-        m_game_state.player->set_position(glm::vec3(1.0f,0.0f,0.0f));
-    }
     
     
 }
