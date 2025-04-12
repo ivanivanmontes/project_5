@@ -42,7 +42,11 @@ void Entity::ai_activate(Entity *player)
 
 void Entity::ai_walk()
 {
-    m_movement = glm::vec3(-1.0f, 0.0f, 0.0f);
+//    m_movement = glm::vec3(0.0f, -1.0f, 0.0f);
+    std::cout << m_position.x << " " << m_position.y << std::endl;
+//    m_movement.x += 1.0f;
+//    m_movement.y += 1.0f;
+    m_position.x += 0.005f;
 }
 
 void Entity::ai_guard(Entity *player)

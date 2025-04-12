@@ -101,11 +101,11 @@ void LevelA::initialise()
 
     for (int i = 0; i < ENEMY_COUNT; i++)
     {
-        m_game_state.enemies[i] =  Entity(enemy_texture_id, 0.0f, 1.0f, 1.0f, ENEMY, WALKER, IDLE);
+        m_game_state.enemies[i] =  Entity(enemy_texture_id, 0.0f, 1.0f, 1.0f, ENEMY, GUARD, WALKING);
     }
 
 
-    m_game_state.enemies[0].set_position(glm::vec3(1.0f, 0.0f, 0.0f));
+    m_game_state.enemies[0].set_position(glm::vec3(5.0f, -9.0f, 0.0f));
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
     
@@ -125,8 +125,11 @@ void LevelA::initialise()
 void LevelA::update(float delta_time)
 {
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        m_game_state.enemies[i].update(delta_time, m_game_state.player, m_game_state.player, 1, m_game_state.map);
+    }
     
-    std::cout << m_game_state.player->get_position().x << " " << m_game_state.player->get_position().y << std::endl;
+//    std::cout << m_game_state.player->get_position().x << " " << m_game_state.player->get_position().y << std::endl;
     
     
     
