@@ -332,7 +332,7 @@ void Entity::update(float delta_time, Entity *player, Entity *collidable_entitie
         }
     }
     
-    m_velocity.x = m_movement.x * m_speed;
+    m_velocity = m_movement * m_speed;
     m_velocity += m_acceleration * delta_time;
     
     if (m_is_jumping)

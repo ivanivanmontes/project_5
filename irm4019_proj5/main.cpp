@@ -31,12 +31,7 @@
 #include "Map.h"
 #include "Utility.h"
 #include "Scene.h"
-#include "Menu.h"
 #include "LevelA.h"
-#include "LevelB.h"
-#include "LevelC.h"
-#include "EndScreen.h"
-#include "LoseScreen.h"
 #include "Effects.h"
 
 // ––––– CONSTANTS ––––– //
@@ -62,15 +57,10 @@ enum AppStatus { RUNNING, TERMINATED };
 
 // ––––– GLOBAL VARIABLES ––––– //
 Scene  *g_current_scene;
-Menu *g_menu;
 LevelA *g_levelA;
-LevelB *g_levelB;
-LevelC *g_levelC;
-EndScreen *g_end;
-LoseScreen *g_lose;
 
 Effects *g_effects;
-Scene   *g_levels[6];
+Scene   *g_levels[1];
 
 SDL_Window* g_display_window;
 
@@ -132,19 +122,9 @@ void initialise()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    g_menu = new Menu();
     g_levelA = new LevelA();
-    g_levelB = new LevelB();
-    g_levelC = new LevelC();
-    g_end = new EndScreen();
-    g_lose = new LoseScreen();
     
-    g_levels[0] = g_menu;
-    g_levels[1] = g_levelA;
-    g_levels[2] = g_levelB;
-    g_levels[3] = g_levelC;
-    g_levels[4] = g_end;
-    g_levels[5] = g_lose;
+    g_levels[0] = g_levelA;
     
     // Start at level A
     switch_to_scene(g_levels[0]);
@@ -176,10 +156,6 @@ void process_input()
                         break;
                         
                     case SDLK_RETURN:
-                        if (g_current_scene == g_menu) {
-                            Mix_PlayChannel(-1,  g_current_scene->get_state().die_sfx, 0);
-                            switch_to_scene(g_levelA);
-                        }
                             
                         break;
                         
@@ -206,11 +182,15 @@ void process_input()
 
     if (key_state[SDL_SCANCODE_LEFT]) {
         g_current_scene->get_state().player->move_left();
-        Mix_PlayChannel(-1,  g_current_scene->get_state().walk_sfx, 0);
     }
     else if (key_state[SDL_SCANCODE_RIGHT]) {
         g_current_scene->get_state().player->move_right();
-        Mix_PlayChannel(-1,  g_current_scene->get_state().walk_sfx, 0);
+    }
+    else if (key_state[SDL_SCANCODE_UP]) {
+        g_current_scene->get_state().player->move_up();
+    }
+    else if (key_state[SDL_SCANCODE_DOWN]) {
+        g_current_scene->get_state().player->move_down();
     }
     if (glm::length( g_current_scene->get_state().player->get_movement()) > 1.0f)
         g_current_scene->get_state().player->normalise_movement();
@@ -252,10 +232,6 @@ void update()
     } else {
         g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
     }
-
-    if (g_current_scene->LIVES == 0) {
-        switch_to_scene(g_lose);
-    }
 }
 
 void render()
@@ -277,7 +253,6 @@ void shutdown()
     SDL_Quit();
     
     delete g_levelA;
-    delete g_levelB;
     delete g_effects;
 }
 
@@ -292,7 +267,6 @@ int main(int argc, char* argv[])
         update();
         
         if (g_current_scene->get_state().next_scene_id >= 0) {
-            g_levels[g_current_scene->get_state().next_scene_id]->set_lives(g_current_scene->LIVES);
             switch_to_scene(g_levels[g_current_scene->get_state().next_scene_id]);
         }
         

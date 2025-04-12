@@ -63,7 +63,7 @@ void LevelA::initialise()
         { 0, 4, 8, 12 }
     };
 
-    glm::vec3 acceleration = glm::vec3(0.0f, -4.81f, 0.0f);
+    glm::vec3 acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
     
     GLuint player_texture_id = Utility::load_texture(SPRITESHEET_FILEPATH);
     
@@ -85,7 +85,7 @@ void LevelA::initialise()
         
     m_game_state.player->set_position(glm::vec3(1.0f, -5.0f, 0.0f));
 
-    m_game_state.player->set_jumping_power(3.0f);
+//    m_game_state.player->set_jumping_power(3.0f);
     
     GLuint enemy_texture_id = Utility::load_texture(ENEMY_FILEPATH);
 
@@ -107,7 +107,7 @@ void LevelA::initialise()
     
     m_game_state.bgm = Mix_LoadMUS("VeLDA.mp3");
     Mix_PlayMusic(m_game_state.bgm, -1);
-    Mix_VolumeMusic(20.0f);
+    Mix_VolumeMusic(0.0f);
     
     m_game_state.jump_sfx = Mix_LoadWAV("duermes.wav");
     m_game_state.walk_sfx = Mix_LoadWAV("capo.wav");
@@ -158,7 +158,7 @@ void LevelA::render(ShaderProgram *program)
 
     
     
-    Utility::draw_text(program, g_font_texture_id_1, "lives: " + std::to_string(LIVES), 0.35f, 0.05f, m_game_state.player->get_position());
-    Utility::draw_text(program, g_font_texture_id_1, "Next Level", 0.35f, 0.05f, glm::vec3(12.0f, -4.0f, 0.0f));
-    Utility::draw_text(program, g_font_texture_id_1, "VVV", 0.35f, 0.05f, glm::vec3(12.0f, -5.0f, 0.0f));
+//    Utility::draw_text(program, g_font_texture_id_1, "lives: " + std::to_string(LIVES), 0.35f, 0.05f, m_game_state.player->get_position());
+//    Utility::draw_text(program, g_font_texture_id_1, "Next Level", 0.35f, 0.05f, glm::vec3(12.0f, -4.0f, 0.0f));
+//    Utility::draw_text(program, g_font_texture_id_1, "VVV", 0.35f, 0.05f, glm::vec3(12.0f, -5.0f, 0.0f));
 }
