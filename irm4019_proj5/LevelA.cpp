@@ -16,6 +16,7 @@
 
 constexpr char SPRITESHEET_FILEPATH[] = "Frame_5.png",
            ENEMY_FILEPATH[]       = "troppa.png",
+PLATFORM_FILEPATH[] = "chest_closed.png",
 FONT_FILEPATH[] = "font1.png";
 
 
@@ -75,6 +76,11 @@ void LevelA::initialise()
     
     GLuint player_texture_id = Utility::load_texture(SPRITESHEET_FILEPATH);
     
+    /// new platform
+
+    
+    
+    
     m_game_state.player = new Entity(
         player_texture_id,         // texture id
         5.0f,                      // speed
@@ -96,14 +102,23 @@ void LevelA::initialise()
 //    m_game_state.player->set_jumping_power(3.0f);
     
     GLuint enemy_texture_id = Utility::load_texture(ENEMY_FILEPATH);
+    
+    GLuint platform_texture_id = Utility::load_texture(PLATFORM_FILEPATH);
 
     m_game_state.enemies = new Entity[ENEMY_COUNT];
+    
+    m_game_state.platforms = new Entity[ENEMY_COUNT];
+    
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        m_game_state.platforms[i] = Entity(platform_texture_id, 0.0f, 1.0f, 1.0f, PLATFORM);
+    }
 
     for (int i = 0; i < ENEMY_COUNT; i++)
     {
         m_game_state.enemies[i] =  Entity(enemy_texture_id, 0.0f, 1.0f, 1.0f, ENEMY, GUARD, WALKING);
     }
 
+    m_game_state.platforms[0].set_position(glm::vec3(10.0f, -9.0f, 0.0f));
 
     m_game_state.enemies[0].set_position(glm::vec3(5.0f, -9.0f, 0.0f));
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
@@ -129,6 +144,44 @@ void LevelA::update(float delta_time)
         m_game_state.enemies[i].update(delta_time, m_game_state.player, m_game_state.player, 1, m_game_state.map);
     }
     
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        m_game_state.platforms[i].update(delta_time, m_game_state.player, m_game_state.player, 1, m_game_state.map);
+        if (m_game_state.platforms[i].check_collision(m_game_state.player)) {
+            /// if on the chest, pick it up
+            m_game_state.player->set_chest(true);
+            m_game_state.player->set_collide_obj(&m_game_state.platforms[i]);
+    //        GLuint platform_texture_id = Utility::load_texture(ENEMY_FILEPATH);
+    //        m_game_state.platforms[0].m_texture_id = platform_texture_id;
+    //        m_game_state.platforms[0].set_texture_id(platform_texture_id);
+            
+            
+        }
+        else {
+            m_game_state.player->set_chest(false);
+        }
+    }
+    
+    
+    
+    
+    if (m_game_state.player->get_return()) {
+        /// if they pressed "return"
+        /// check if the player is on a chest
+        if (m_game_state.player->get_chest()) {
+            GLuint platform_texture_id = Utility::load_texture("chest_open.png");
+            Entity *res = m_game_state.player->get_collide_obj();
+            res->set_texture_id(platform_texture_id);
+//            m_game_state.platforms[0].set_texture_id(platform_texture_id);
+            m_game_state.player->set_return(false);
+            
+        }
+    }
+    
+    
+    
+    
+    
+//    std::cout << m_game_state.player->get_chest() << std::endl;
 //    std::cout << m_game_state.player->get_position().x << " " << m_game_state.player->get_position().y << std::endl;
     
     
@@ -143,10 +196,15 @@ void LevelA::render(ShaderProgram *program)
     m_game_state.map->render(program);
     m_game_state.player->render(program);
     for (int i = 0; i < ENEMY_COUNT; i++)    m_game_state.enemies[i].render(program);
+    for (int i = 0; i < ENEMY_COUNT; i++)   m_game_state.platforms[i].render(program);
 
     
     
 //    Utility::draw_text(program, g_font_texture_id_1, "lives: " + std::to_string(LIVES), 0.35f, 0.05f, m_game_state.player->get_position());
-//    Utility::draw_text(program, g_font_texture_id_1, "Next Level", 0.35f, 0.05f, glm::vec3(12.0f, -4.0f, 0.0f));
+    glm::vec3 res = m_game_state.player->get_position();
+    res.x -= 8.0f;
+    res.y += 6.0f;
+    Utility::draw_text(program, g_font_texture_id_1, "cash: ", 0.35f, 0.05f, res);
+//    Utility::draw_text(program, g_font_texture_id_1, "Next Level", 0.35f, 0.05f, glm::vec3(0.0f, -4.0f, 0.0f));
 //    Utility::draw_text(program, g_font_texture_id_1, "VVV", 0.35f, 0.05f, glm::vec3(12.0f, -5.0f, 0.0f));
 }

@@ -71,6 +71,9 @@
 			buildPhase = DBDF1B4D2323DE3F007CECB1 /* CopyFiles */;
 			membershipExceptions = (
 				capo.wav,
+				chest_closed.png,
+				chest_open.png,
+				chest.png,
 				duermes.wav,
 				feid.wav,
 				font1.png,

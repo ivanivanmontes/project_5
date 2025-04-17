@@ -354,6 +354,8 @@ void Entity::update(float delta_time, Entity *player, Entity *collidable_entitie
     check_collision_x(collidable_entities, collidable_entity_count);
     check_collision_x(map);
     
+    
+    
     m_model_matrix = glm::mat4(1.0f);
     m_model_matrix = glm::translate(m_model_matrix, m_position);
 }

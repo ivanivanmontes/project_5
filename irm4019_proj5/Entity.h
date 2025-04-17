@@ -19,7 +19,7 @@ private:
     
     int m_walking[4][4];
 
-    
+    Entity *m_colliding_object;
     EntityType m_entity_type;
     AIType     m_ai_type;
     AIState    m_ai_state;
@@ -56,6 +56,8 @@ private:
     bool m_collided_bottom = false;
     bool m_collided_left   = false;
     bool m_collided_right  = false;
+    bool m_chest = false;
+    bool m_return = false;
 
 public:
     // ————— STATIC VARIABLES ————— //
@@ -117,7 +119,14 @@ public:
     bool      const get_collided_bottom() const { return m_collided_bottom; }
     bool      const get_collided_right() const { return m_collided_right; }
     bool      const get_collided_left() const { return m_collided_left; }
-//    int const get_lives() const { return lives; } 
+    bool const get_chest() const { return m_chest && m_entity_type == PLAYER; }
+    
+    void const set_chest(bool res) { m_chest = res;}
+    void const set_return(bool res) { m_return = res;}
+    bool const get_return() { return m_return; }
+    void const set_collide_obj(Entity *collidable_entity) { m_colliding_object = collidable_entity;}
+    Entity* const get_collide_obj() { return m_colliding_object; }
+    
     
     void activate()   { m_is_active = true;  };
     void deactivate() { m_is_active = false; };
