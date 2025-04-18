@@ -19,7 +19,7 @@ private:
     
     int m_walking[4][4];
 
-    Entity *m_colliding_object;
+    Entity *m_colliding_object = nullptr;
     EntityType m_entity_type;
     AIType     m_ai_type;
     AIState    m_ai_state;
@@ -58,6 +58,7 @@ private:
     bool m_collided_right  = false;
     bool m_chest = false;
     bool m_return = false;
+    int m_cash = 0;
 
 public:
     // ————— STATIC VARIABLES ————— //
@@ -126,6 +127,9 @@ public:
     bool const get_return() { return m_return; }
     void const set_collide_obj(Entity *collidable_entity) { m_colliding_object = collidable_entity;}
     Entity* const get_collide_obj() { return m_colliding_object; }
+    
+    void const add_cash(int cash) { m_cash += cash;}
+    int const get_cash() { return m_cash; }
     
     
     void activate()   { m_is_active = true;  };

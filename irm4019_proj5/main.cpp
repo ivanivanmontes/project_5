@@ -170,12 +170,9 @@ void process_input()
                         
                     case SDLK_SPACE:
                         // Jump
-                        if (g_current_scene->get_state().player->get_collided_bottom())
-                                                {
-                                                    g_current_scene->get_state().player->jump();
-                                                    Mix_PlayChannel(-1,  g_current_scene->get_state().jump_sfx, 0);
-                                                }
-                                                 break;
+                        std::cout << g_current_scene->get_state().player->get_chest() << std::endl;
+                        
+                        break;
                         
                     default:
                         break;

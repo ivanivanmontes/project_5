@@ -73,7 +73,6 @@
 				capo.wav,
 				chest_closed.png,
 				chest_open.png,
-				chest.png,
 				duermes.wav,
 				feid.wav,
 				font1.png,
