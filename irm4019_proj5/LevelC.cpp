@@ -123,9 +123,15 @@ void LevelC::initialise()
     m_game_state.platforms[2].set_position(glm::vec3(2.0f, -5.0f, 0.0f));
     m_game_state.platforms[3].set_position(glm::vec3(2.0f, -9.0f, 0.0f));
 
-    m_game_state.enemies[0].set_position(glm::vec3(5.0f, -9.0f, 0.0f));
-    m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
-    m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+    int start = 5.0f;
+    
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        m_game_state.enemies[i].set_position(glm::vec3(start + i, -9.0f, 0.0f));
+        m_game_state.enemies[i].set_movement(glm::vec3(0.0f));
+        m_game_state.enemies[i].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+    }
+    
+   
     
     
     
@@ -135,9 +141,9 @@ void LevelC::initialise()
     
     m_game_state.bgm = Mix_LoadMUS("GAVILAN.mp3");
     Mix_PlayMusic(m_game_state.bgm, -1);
-    Mix_VolumeMusic(30.0f);
+    Mix_VolumeMusic(20.0f);
     
-    m_game_state.jump_sfx = Mix_LoadWAV("duermes.wav");
+    m_game_state.jump_sfx = Mix_LoadWAV("ahem.wav");
     m_game_state.walk_sfx = Mix_LoadWAV("capo.wav");
     m_game_state.die_sfx = Mix_LoadWAV("money.wav");
 }
@@ -158,8 +164,10 @@ void LevelC::update(float delta_time)
     for (int i = 0; i < ENEMY_COUNT; i++) {
             glm::vec3 res = m_game_state.enemies[i].get_position();
             if (res.y >= -2.0) {
+                
                 check = !check;
             } else if (res.y <= -12.05) {
+                Mix_PlayChannel(-1, m_game_state.jump_sfx, 0);
                 check = !check;
             }
             if (check) {

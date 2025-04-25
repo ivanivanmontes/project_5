@@ -2,7 +2,7 @@
 
 class LevelB : public Scene {
 public:
-    int ENEMY_COUNT = 1;
+    int ENEMY_COUNT = 3;
     int CHEST_COUNT = 4;
     bool check = true;
     glm::vec3 new_pos = (glm::vec3(0.0f,0.05f,0.0f));

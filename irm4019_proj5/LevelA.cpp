@@ -135,9 +135,9 @@ void LevelA::initialise()
     
     m_game_state.bgm = Mix_LoadMUS("GAVILAN.mp3");
     Mix_PlayMusic(m_game_state.bgm, -1);
-    Mix_VolumeMusic(30.0f);
+    Mix_VolumeMusic(20.0f);
     
-    m_game_state.jump_sfx = Mix_LoadWAV("duermes.wav");
+    m_game_state.jump_sfx = Mix_LoadWAV("ahem.wav");
     m_game_state.walk_sfx = Mix_LoadWAV("capo.wav");
     m_game_state.die_sfx = Mix_LoadWAV("money.wav");
 }
@@ -158,12 +158,15 @@ void LevelA::update(float delta_time)
     for (int i = 0; i < ENEMY_COUNT; i++) {
             glm::vec3 res = m_game_state.enemies[i].get_position();
             if (res.y >= -2.0) {
+                Mix_PlayChannel(-1, m_game_state.jump_sfx, 0);
                 check = !check;
             } else if (res.y <= -12.05) {
+                Mix_PlayChannel(-1, m_game_state.jump_sfx, 0);
                 check = !check;
             }
             if (check) {
                 res += new_pos;
+                
             } else {
                 res -= new_pos;
             }

@@ -82,18 +82,16 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = DBDF1B4D2323DE3F007CECB1 /* CopyFiles */;
 			membershipExceptions = (
+				ahem.wav,
 				capo.wav,
 				chest_closed.png,
 				chest_open.png,
-				duermes.wav,
-				feid.wav,
 				font1.png,
 				gangster.png,
 				GAVILAN.mp3,
 				money.wav,
 				opp.png,
 				tiles.png,
-				VeLDA.mp3,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
