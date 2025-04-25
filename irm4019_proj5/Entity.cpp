@@ -43,7 +43,7 @@ void Entity::ai_activate(Entity *player)
 void Entity::ai_walk()
 {
 //    m_movement = glm::vec3(0.0f, -1.0f, 0.0f);
-    std::cout << m_position.x << " " << m_position.y << std::endl;
+//    std::cout << m_position.x << " " << m_position.y << std::endl;
 //    m_movement.x += 1.0f;
 //    m_movement.y += 1.0f;
     m_position.x += 0.005f;
@@ -163,7 +163,8 @@ bool const Entity::check_collision(Entity* other) const
 {
     float x_distance = fabs(m_position.x - other->m_position.x) - ((m_width + other->m_width) / 2.0f);
     float y_distance = fabs(m_position.y - other->m_position.y) - ((m_height + other->m_height) / 2.0f);
-
+    
+    /// just increase this ever so slightly
     return x_distance < 0.0f && y_distance < 0.0f;
 }
 

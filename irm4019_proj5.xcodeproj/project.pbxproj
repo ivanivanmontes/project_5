@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6D45FA832D80ADE0004D5B30 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D45FA822D80ADDF004D5B30 /* Entity.cpp */; };
+		6DCA30A52DB2C01B00FC7CBC /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA30A42DB2C01A00FC7CBC /* Menu.cpp */; };
+		6DCA30A82DB2C50A00FC7CBC /* WinScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA30A72DB2C50700FC7CBC /* WinScreen.cpp */; };
 		6DF58FC02D9CA0DA009A28D8 /* Effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DF58FBF2D9CA0DA009A28D8 /* Effects.cpp */; };
 		6DF58FC32D9CA128009A28D8 /* LevelA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DF58FC22D9CA128009A28D8 /* LevelA.cpp */; };
 		6DF58FD02D9CA1A5009A28D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DF58FC82D9CA1A5009A28D8 /* main.cpp */; };
@@ -40,6 +42,10 @@
 /* Begin PBXFileReference section */
 		6D45FA812D80ADC8004D5B30 /* Entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		6D45FA822D80ADDF004D5B30 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		6DCA30A32DB2C01300FC7CBC /* Menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
+		6DCA30A42DB2C01A00FC7CBC /* Menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
+		6DCA30A62DB2C4FB00FC7CBC /* WinScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinScreen.h; sourceTree = "<group>"; };
+		6DCA30A72DB2C50700FC7CBC /* WinScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WinScreen.cpp; sourceTree = "<group>"; };
 		6DF58FBF2D9CA0DA009A28D8 /* Effects.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Effects.cpp; sourceTree = "<group>"; };
 		6DF58FC12D9CA0E1009A28D8 /* Effects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Effects.h; sourceTree = "<group>"; };
 		6DF58FC22D9CA128009A28D8 /* LevelA.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LevelA.cpp; sourceTree = "<group>"; };
@@ -76,8 +82,11 @@
 				duermes.wav,
 				feid.wav,
 				font1.png,
-				Frame_5.png,
 				Frame_6.png,
+				gangster.png,
+				GAVILAN.mp3,
+				money.wav,
+				opp.png,
 				troppa.png,
 				VeLDA.mp3,
 			);
@@ -136,6 +145,10 @@
 				6D45FA822D80ADDF004D5B30 /* Entity.cpp */,
 				6DF58FC22D9CA128009A28D8 /* LevelA.cpp */,
 				6DF58FC42D9CA12D009A28D8 /* LevelA.h */,
+				6DCA30A32DB2C01300FC7CBC /* Menu.h */,
+				6DCA30A42DB2C01A00FC7CBC /* Menu.cpp */,
+				6DCA30A62DB2C4FB00FC7CBC /* WinScreen.h */,
+				6DCA30A72DB2C50700FC7CBC /* WinScreen.cpp */,
 				6DF58FC52D9CA1A5009A28D8 /* helper.cpp */,
 				6DF58FC82D9CA1A5009A28D8 /* main.cpp */,
 				6DF58FC92D9CA1A5009A28D8 /* Map.h */,
@@ -223,8 +236,10 @@
 				6D45FA832D80ADE0004D5B30 /* Entity.cpp in Sources */,
 				DBDF1B5E2323DE8D007CECB1 /* ShaderProgram.cpp in Sources */,
 				6DF58FD02D9CA1A5009A28D8 /* main.cpp in Sources */,
+				6DCA30A52DB2C01B00FC7CBC /* Menu.cpp in Sources */,
 				6DF58FD12D9CA1A5009A28D8 /* Utility.cpp in Sources */,
 				6DF58FD22D9CA1A5009A28D8 /* Map.cpp in Sources */,
+				6DCA30A82DB2C50A00FC7CBC /* WinScreen.cpp in Sources */,
 				6DF58FD32D9CA1A5009A28D8 /* Scene.cpp in Sources */,
 				6DF58FD42D9CA1A5009A28D8 /* helper.cpp in Sources */,
 				6DF58FC32D9CA128009A28D8 /* LevelA.cpp in Sources */,

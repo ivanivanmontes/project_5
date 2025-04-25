@@ -32,6 +32,8 @@
 #include "Utility.h"
 #include "Scene.h"
 #include "LevelA.h"
+#include "Menu.h"
+#include "WinScreen.h"
 #include "Effects.h"
 
 // ––––– CONSTANTS ––––– //
@@ -58,9 +60,11 @@ enum AppStatus { RUNNING, TERMINATED };
 // ––––– GLOBAL VARIABLES ––––– //
 Scene  *g_current_scene;
 LevelA *g_levelA;
+Menu *g_menu;
+WinScreen *g_win;
 
 Effects *g_effects;
-Scene   *g_levels[1];
+Scene   *g_levels[3];
 
 SDL_Window* g_display_window;
 
@@ -110,8 +114,8 @@ void initialise()
     
     g_view_matrix = glm::mat4(1.0f);
     //TODO: dont forget this
-    g_projection_matrix = glm::ortho(-10.0f, 10.0f, -7.5f, 7.5f, -1.0f, 1.0f);
-//    g_projection_matrix = glm::ortho(-5.0f, 5.0f, -3.75f, 3.75f, -1.0f, 1.0f);
+//    g_projection_matrix = glm::ortho(-10.0f, 10.0f, -7.5f, 7.5f, -1.0f, 1.0f);
+    g_projection_matrix = glm::ortho(-5.0f, 5.0f, -3.75f, 3.75f, -1.0f, 1.0f);
     
     g_shader_program.set_projection_matrix(g_projection_matrix);
     g_shader_program.set_view_matrix(g_view_matrix);
@@ -125,8 +129,13 @@ void initialise()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     g_levelA = new LevelA();
+    g_menu = new Menu();
+    g_win = new WinScreen();
     
-    g_levels[0] = g_levelA;
+    g_levels[0] = g_menu;
+    g_levels[1] = g_levelA;
+    g_levels[2] = g_win;
+    
     
     // Start at level A
     switch_to_scene(g_levels[0]);
@@ -158,19 +167,18 @@ void process_input()
                         break;
                         
                     case SDLK_RETURN:
-                        g_current_scene->get_state().player->set_return(true);
-//                        if (g_current_scene->get_state().player->get_chest()) {
-//                            std::cout << g_current_scene->get_state().player->get_chest() << std::endl;
-//                        } else {
-//                            std::cout << g_current_scene->get_state().player->get_chest() << std::endl;
-//                        }
-                            
+                        if (g_current_scene == g_menu) {
+                            switch_to_scene(g_levels[1]);
+                        }
+                        else {
+                            g_current_scene->get_state().player->set_return(true);
+                        }
                         break;
                         
                         
                     case SDLK_SPACE:
                         // Jump
-                        std::cout << g_current_scene->get_state().player->get_chest() << std::endl;
+//                        std::cout << g_current_scene->get_state().player->get_chest() << std::endl;
                         
                         break;
                         
@@ -187,15 +195,19 @@ void process_input()
 
     if (key_state[SDL_SCANCODE_LEFT]) {
         g_current_scene->get_state().player->move_left();
+        Mix_PlayChannel(-1, g_current_scene->get_state().walk_sfx, 0);
     }
     else if (key_state[SDL_SCANCODE_RIGHT]) {
         g_current_scene->get_state().player->move_right();
+        Mix_PlayChannel(-1, g_current_scene->get_state().walk_sfx, 0);
     }
     else if (key_state[SDL_SCANCODE_UP]) {
         g_current_scene->get_state().player->move_up();
+        Mix_PlayChannel(-1, g_current_scene->get_state().walk_sfx, 0);
     }
     else if (key_state[SDL_SCANCODE_DOWN]) {
         g_current_scene->get_state().player->move_down();
+        Mix_PlayChannel(-1, g_current_scene->get_state().walk_sfx, 0);
     }
     if (glm::length( g_current_scene->get_state().player->get_movement()) > 1.0f)
         g_current_scene->get_state().player->normalise_movement();
@@ -237,6 +249,12 @@ void update()
     } else {
         g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
     }
+    
+    
+    if (g_current_scene->get_state().player->get_cash() >= 200.0f) {
+//        Mix_PlayChannel(-1, g_current_scene->get_state().jump_sfx, 0);
+        switch_to_scene(g_levels[2]);
+    }
 }
 
 void render()
@@ -271,9 +289,9 @@ int main(int argc, char* argv[])
         process_input();
         update();
         
-        if (g_current_scene->get_state().next_scene_id >= 0) {
-            switch_to_scene(g_levels[g_current_scene->get_state().next_scene_id]);
-        }
+//        if (g_current_scene->get_state().next_scene_id >= 0) {
+//            switch_to_scene(g_levels[g_current_scene->get_state().next_scene_id]);
+//        }
         
         render();
     }

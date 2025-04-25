@@ -14,8 +14,8 @@
 #define LEVEL_WIDTH 15
 #define LEVEL_HEIGHT 15
 
-constexpr char SPRITESHEET_FILEPATH[] = "Frame_5.png",
-           ENEMY_FILEPATH[]       = "troppa.png",
+constexpr char SPRITESHEET_FILEPATH[] = "gangster.png",
+           ENEMY_FILEPATH[]       = "opp.png",
 PLATFORM_FILEPATH[] = "chest_closed.png",
 FONT_FILEPATH[] = "font1.png";
 
@@ -128,16 +128,18 @@ void LevelA::initialise()
     m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
     
     
+    
+    
 
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
     
-    m_game_state.bgm = Mix_LoadMUS("VeLDA.mp3");
+    m_game_state.bgm = Mix_LoadMUS("GAVILAN.mp3");
     Mix_PlayMusic(m_game_state.bgm, -1);
-    Mix_VolumeMusic(0.0f);
+    Mix_VolumeMusic(30.0f);
     
     m_game_state.jump_sfx = Mix_LoadWAV("duermes.wav");
     m_game_state.walk_sfx = Mix_LoadWAV("capo.wav");
-    m_game_state.die_sfx = Mix_LoadWAV("feid.wav");
+    m_game_state.die_sfx = Mix_LoadWAV("money.wav");
 }
 
 void LevelA::update(float delta_time)
@@ -145,12 +147,30 @@ void LevelA::update(float delta_time)
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
     for (int i = 0; i < ENEMY_COUNT; i++) {
         m_game_state.enemies[i].update(delta_time, m_game_state.player, m_game_state.player, 1, m_game_state.map);
+        
     }
     
     for (int i = 0; i < CHEST_COUNT; i++) {
         m_game_state.platforms[i].update(delta_time, m_game_state.player, m_game_state.player, 1, m_game_state.map);
         
     }
+    
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+            glm::vec3 res = m_game_state.enemies[i].get_position();
+            if (res.y >= -2.0) {
+                check = !check;
+            } else if (res.y <= -12.05) {
+                check = !check;
+            }
+            if (check) {
+                res += new_pos;
+            } else {
+                res -= new_pos;
+            }
+            m_game_state.enemies[i].set_position(res);
+            m_game_state.enemies[i].update(delta_time, m_game_state.enemies, m_game_state.player, 1, m_game_state.map);
+        }
+    
     
     for (int i = 0; i < CHEST_COUNT; i++) {
         if (m_game_state.platforms[i].check_collision(m_game_state.player)) {
@@ -163,9 +183,6 @@ void LevelA::update(float delta_time)
             m_game_state.player->set_chest(false);
         }
     }
-    
-    
-    
     
     if (m_game_state.player->get_return()) {
         /// if they pressed "return"
@@ -182,22 +199,12 @@ void LevelA::update(float delta_time)
             
             
         }
+        else {
+            m_game_state.player->set_return(false);
+        }
     }
     
-    
-    
-    
-    
-//    std::cout << m_game_state.player->get_chest() << std::endl;
-//    std::cout << m_game_state.player->get_position().x << " " << m_game_state.player->get_position().y << std::endl;
-//    if (m_game_state.player->get_collide_obj()) {
-//        std::cout << m_game_state.player->get_collide_obj()->get_position().x << std::endl;
-//    }
-    
-    
-    
-
-    
+    std::cout << m_game_state.player->get_position().x << " " << m_game_state.player->get_position().y << std::endl;
     
 }
 
@@ -207,11 +214,13 @@ void LevelA::render(ShaderProgram *program)
     m_game_state.player->render(program);
     for (int i = 0; i < ENEMY_COUNT; i++)    m_game_state.enemies[i].render(program);
     for (int i = 0; i < CHEST_COUNT; i++)   m_game_state.platforms[i].render(program);
-
-    
     
     glm::vec3 res = m_game_state.player->get_position();
-    res.x -= 8.0f;
-    res.y += 6.0f;
+//    res.x -= 8.0f;
+//    res.y += 6.0f;
+    res.x -= 4.5f;
+    res.y += 3.0f;
     Utility::draw_text(program, g_font_texture_id_1, "cash: $" + std::to_string(m_game_state.player->get_cash()), 0.35f, 0.05f, res);
+    
+    Utility::draw_text(program, g_font_texture_id_1, "Level 1", 0.35f, 0.05f, glm::vec3(res.x + 6.0f, res.y, res.z));
 }
