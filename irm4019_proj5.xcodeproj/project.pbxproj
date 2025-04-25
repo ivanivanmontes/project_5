@@ -82,12 +82,11 @@
 				duermes.wav,
 				feid.wav,
 				font1.png,
-				Frame_6.png,
 				gangster.png,
 				GAVILAN.mp3,
 				money.wav,
 				opp.png,
-				troppa.png,
+				tiles.png,
 				VeLDA.mp3,
 			);
 		};

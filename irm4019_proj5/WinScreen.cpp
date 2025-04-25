@@ -51,7 +51,7 @@ void WinScreen::initialise()
     
     
     
-    GLuint map_texture_id = Utility::load_texture("Frame_6.png");
+    GLuint map_texture_id = Utility::load_texture("tiles.png");
     m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, WIN_DATA, map_texture_id, 1.0f, 4, 1);
     
     g_font_texture_id_3 = Utility::load_texture(FONT_FILEPATH);
