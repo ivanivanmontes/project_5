@@ -33,6 +33,7 @@
 #include "Scene.h"
 #include "LevelA.h"
 #include "LevelB.h"
+#include "LevelC.h"
 #include "Menu.h"
 #include "WinScreen.h"
 #include "Effects.h"
@@ -62,11 +63,12 @@ enum AppStatus { RUNNING, TERMINATED };
 Scene  *g_current_scene;
 LevelA *g_levelA;
 LevelB *g_levelB;
+LevelC *g_levelC;
 Menu *g_menu;
 WinScreen *g_win;
 
 Effects *g_effects;
-Scene   *g_levels[4];
+Scene   *g_levels[5];
 
 SDL_Window* g_display_window;
 
@@ -132,13 +134,15 @@ void initialise()
 
     g_levelA = new LevelA();
     g_levelB = new LevelB();
+    g_levelC = new LevelC();
     g_menu = new Menu();
     g_win = new WinScreen();
     
     g_levels[0] = g_menu;
     g_levels[1] = g_levelA;
     g_levels[2] = g_levelB;
-    g_levels[3] = g_win;
+    g_levels[3] = g_levelC;
+    g_levels[4] = g_win;
     
     
     // Start at level A

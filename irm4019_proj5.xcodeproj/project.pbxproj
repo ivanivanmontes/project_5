@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6D45FA832D80ADE0004D5B30 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D45FA822D80ADDF004D5B30 /* Entity.cpp */; };
 		6D9476AA2DBBECEA008D4A52 /* LevelB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D9476A92DBBECE6008D4A52 /* LevelB.cpp */; };
+		6D9476AD2DBBEEA0008D4A52 /* LevelC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D9476AC2DBBEEA0008D4A52 /* LevelC.cpp */; };
 		6DCA30A52DB2C01B00FC7CBC /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA30A42DB2C01A00FC7CBC /* Menu.cpp */; };
 		6DCA30A82DB2C50A00FC7CBC /* WinScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA30A72DB2C50700FC7CBC /* WinScreen.cpp */; };
 		6DF58FC02D9CA0DA009A28D8 /* Effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DF58FBF2D9CA0DA009A28D8 /* Effects.cpp */; };
@@ -45,6 +46,8 @@
 		6D45FA822D80ADDF004D5B30 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		6D9476A82DBBECDD008D4A52 /* LevelB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelB.h; sourceTree = "<group>"; };
 		6D9476A92DBBECE6008D4A52 /* LevelB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LevelB.cpp; sourceTree = "<group>"; };
+		6D9476AB2DBBEE98008D4A52 /* LevelC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelC.h; sourceTree = "<group>"; };
+		6D9476AC2DBBEEA0008D4A52 /* LevelC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LevelC.cpp; sourceTree = "<group>"; };
 		6DCA30A32DB2C01300FC7CBC /* Menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
 		6DCA30A42DB2C01A00FC7CBC /* Menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
 		6DCA30A62DB2C4FB00FC7CBC /* WinScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinScreen.h; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				6DF58FC42D9CA12D009A28D8 /* LevelA.h */,
 				6D9476A82DBBECDD008D4A52 /* LevelB.h */,
 				6D9476A92DBBECE6008D4A52 /* LevelB.cpp */,
+				6D9476AB2DBBEE98008D4A52 /* LevelC.h */,
+				6D9476AC2DBBEEA0008D4A52 /* LevelC.cpp */,
 				6DCA30A32DB2C01300FC7CBC /* Menu.h */,
 				6DCA30A42DB2C01A00FC7CBC /* Menu.cpp */,
 				6DCA30A62DB2C4FB00FC7CBC /* WinScreen.h */,
@@ -241,6 +246,7 @@
 				DBDF1B5E2323DE8D007CECB1 /* ShaderProgram.cpp in Sources */,
 				6DF58FD02D9CA1A5009A28D8 /* main.cpp in Sources */,
 				6DCA30A52DB2C01B00FC7CBC /* Menu.cpp in Sources */,
+				6D9476AD2DBBEEA0008D4A52 /* LevelC.cpp in Sources */,
 				6DF58FD12D9CA1A5009A28D8 /* Utility.cpp in Sources */,
 				6DF58FD22D9CA1A5009A28D8 /* Map.cpp in Sources */,
 				6DCA30A82DB2C50A00FC7CBC /* WinScreen.cpp in Sources */,
