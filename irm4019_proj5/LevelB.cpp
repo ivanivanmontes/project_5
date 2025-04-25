@@ -8,7 +8,7 @@
 * Academic Misconduct.
 **/
 
-#include "LevelA.h"
+#include "LevelB.h"
 #include "Utility.h"
 
 #define LEVEL_WIDTH 15
@@ -21,10 +21,10 @@ FONT_FILEPATH[] = "font1.png";
 
 
 
-GLuint g_font_texture_id_1;
+GLuint g_font_texture_id_9;
 
 
-unsigned int LEVELA_DATA[] =
+unsigned int LEVELB_DATA[] =
 {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -44,7 +44,7 @@ unsigned int LEVELA_DATA[] =
 };
 
 
-LevelA::~LevelA()
+LevelB::~LevelB()
 {
     delete [] m_game_state.enemies;
     delete    m_game_state.player;
@@ -53,16 +53,16 @@ LevelA::~LevelA()
     Mix_FreeMusic(m_game_state.bgm);
 }
 
-void LevelA::initialise()
+void LevelB::initialise()
 {
-    m_game_state.next_scene_id = 2;
+    m_game_state.next_scene_id = 3;
     
     
     
     GLuint map_texture_id = Utility::load_texture("tiles.png");
-    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVELA_DATA, map_texture_id, 1.0f, 4, 1);
+    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVELB_DATA, map_texture_id, 1.0f, 4, 1);
     
-    g_font_texture_id_1 = Utility::load_texture(FONT_FILEPATH);
+    g_font_texture_id_9 = Utility::load_texture(FONT_FILEPATH);
     
     int player_walking_animation[4][4] =
     {
@@ -142,7 +142,7 @@ void LevelA::initialise()
     m_game_state.die_sfx = Mix_LoadWAV("money.wav");
 }
 
-void LevelA::update(float delta_time)
+void LevelB::update(float delta_time)
 {
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
     for (int i = 0; i < ENEMY_COUNT; i++) {
@@ -208,7 +208,7 @@ void LevelA::update(float delta_time)
     
 }
 
-void LevelA::render(ShaderProgram *program)
+void LevelB::render(ShaderProgram *program)
 {
     m_game_state.map->render(program);
     m_game_state.player->render(program);
@@ -220,7 +220,7 @@ void LevelA::render(ShaderProgram *program)
 //    res.y += 6.0f;
     res.x -= 4.5f;
     res.y += 3.0f;
-    Utility::draw_text(program, g_font_texture_id_1, "cash: $" + std::to_string(m_game_state.player->get_cash()), 0.35f, 0.05f, res);
+    Utility::draw_text(program, g_font_texture_id_9, "cash: $" + std::to_string(m_game_state.player->get_cash()), 0.35f, 0.05f, res);
     
-    Utility::draw_text(program, g_font_texture_id_1, "Level 1", 0.35f, 0.05f, glm::vec3(res.x + 6.0f, res.y, res.z));
+    Utility::draw_text(program, g_font_texture_id_9, "Level 2", 0.35f, 0.05f, glm::vec3(res.x + 6.0f, res.y, res.z));
 }

@@ -32,6 +32,7 @@
 #include "Utility.h"
 #include "Scene.h"
 #include "LevelA.h"
+#include "LevelB.h"
 #include "Menu.h"
 #include "WinScreen.h"
 #include "Effects.h"
@@ -60,11 +61,12 @@ enum AppStatus { RUNNING, TERMINATED };
 // ––––– GLOBAL VARIABLES ––––– //
 Scene  *g_current_scene;
 LevelA *g_levelA;
+LevelB *g_levelB;
 Menu *g_menu;
 WinScreen *g_win;
 
 Effects *g_effects;
-Scene   *g_levels[3];
+Scene   *g_levels[4];
 
 SDL_Window* g_display_window;
 
@@ -129,12 +131,14 @@ void initialise()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     g_levelA = new LevelA();
+    g_levelB = new LevelB();
     g_menu = new Menu();
     g_win = new WinScreen();
     
     g_levels[0] = g_menu;
     g_levels[1] = g_levelA;
-    g_levels[2] = g_win;
+    g_levels[2] = g_levelB;
+    g_levels[3] = g_win;
     
     
     // Start at level A
@@ -253,7 +257,7 @@ void update()
     
     if (g_current_scene->get_state().player->get_cash() >= 200.0f) {
 //        Mix_PlayChannel(-1, g_current_scene->get_state().jump_sfx, 0);
-        switch_to_scene(g_levels[2]);
+        switch_to_scene(g_levels[g_current_scene->get_state().next_scene_id]);
     }
 }
 
